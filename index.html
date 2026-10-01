@@ -64,6 +64,21 @@
   .btn-cta.outline { color: #fff; }
   .btn-cta.outline:hover { background: rgba(255,255,255,0.12); text-decoration: none; }
 
+  [data-copy] { position: relative; cursor: pointer; }
+  .copy-tip {
+    position: absolute; left: 50%; bottom: 125%; transform: translateX(-50%);
+    background: #fff; color: var(--navy); font-size: 11px; font-weight: 700;
+    padding: 4px 9px; border-radius: 5px; white-space: nowrap; pointer-events: none;
+    box-shadow: 0 3px 10px rgba(0,0,0,.18); z-index: 20;
+    animation: copyFade 1.6s ease forwards;
+  }
+  @keyframes copyFade {
+    0% { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
   nav.subnav {
     position: sticky; top: 0; z-index: 10;
     background: #fff; border-bottom: 1px solid var(--border);
@@ -171,12 +186,12 @@
       <div class="tagline">Marketing &amp; Communications · Digital Marketing · Operations &amp; Retail Leadership</div>
       <div class="contact">
         Brampton, ON, Canada <span class="sep">|</span>
-        <a href="mailto:telgotesumeet@gmail.com">telgotesumeet@gmail.com</a> <span class="sep">|</span>
-        <a href="tel:+12508793560">(250) 879-3560</a> <span class="sep">|</span>
+        <a href="mailto:telgotesumeet@gmail.com" data-copy="telgotesumeet@gmail.com">telgotesumeet@gmail.com</a> <span class="sep">|</span>
+        <a href="tel:+12508793560" data-copy="(250) 879-3560">(250) 879-3560</a> <span class="sep">|</span>
         <a href="https://www.linkedin.com/in/sumeet-telgote/" target="_blank" rel="noopener">linkedin.com/in/sumeet-telgote</a>
       </div>
       <div class="cta-row">
-        <a class="btn-cta solid" href="mailto:telgotesumeet@gmail.com">Let's Talk — Email Me</a>
+        <a class="btn-cta solid" href="mailto:telgotesumeet@gmail.com" data-copy="telgotesumeet@gmail.com">Let's Talk — Email Me</a>
         <a class="btn-cta outline" href="https://www.linkedin.com/in/sumeet-telgote/" target="_blank" rel="noopener">Connect on LinkedIn</a>
       </div>
     </div>
@@ -350,6 +365,26 @@ document.getElementById("filters").addEventListener("click", (e) => {
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// Email/phone links: let mailto:/tel: try to open the default app as normal,
+// and also copy the value to the clipboard with a brief confirmation — this
+// way the link still works for visitors with no mail/phone app configured
+// (the common case on a desktop browser).
+document.querySelectorAll("[data-copy]").forEach((el) => {
+  el.addEventListener("click", () => {
+    const text = el.getAttribute("data-copy");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(() => {});
+    }
+    const existing = el.querySelector(".copy-tip");
+    if (existing) existing.remove();
+    const tip = document.createElement("span");
+    tip.className = "copy-tip";
+    tip.textContent = "Copied!";
+    el.appendChild(tip);
+    setTimeout(() => tip.remove(), 1600);
+  });
+});
 </script>
 
 </body>
