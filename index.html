@@ -35,9 +35,8 @@
     overflow: hidden;
   }
   header.hero .skyline-bg {
-    position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62%;
-    min-height: 180px;
-    opacity: 0.55;
+    position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 68%;
+    min-height: 200px;
     pointer-events: none;
     z-index: 0;
   }
@@ -68,8 +67,13 @@
   }
   .btn-cta.solid { background: #fff; color: var(--navy); border-color: #fff; }
   .btn-cta.solid:hover { background: #CFE3EC; text-decoration: none; }
-  .btn-cta.outline { color: #fff; }
-  .btn-cta.outline:hover { background: rgba(255,255,255,0.12); text-decoration: none; }
+  .btn-cta.outline {
+    color: #fff;
+    background: rgba(8,16,32,0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+  .btn-cta.outline:hover { background: rgba(8,16,32,0.7); text-decoration: none; }
 
   [data-copy] { position: relative; cursor: pointer; }
   .copy-tip {
@@ -186,13 +190,37 @@
 
 <header class="hero">
   <div class="skyline-bg" aria-hidden="true">
-    <svg viewBox="0 -30 1600 330" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#9FD3EC" d="M0,300 L0,230 L55,230 L55,170 L110,170 L110,205 L180,205 L180,130 L245,130 L245,180 L310,180 L310,90 L375,90 L375,150 L430,150 L430,65 L520,65 L520,190 L575,190 L575,220 L665,220 L665,240 L745,240 L745,160 L800,160 L800,235 L855,235 L855,235 L910,235 L910,150 L975,150 L975,200 L1040,200 L1040,235 L1130,235 L1130,180 L1220,180 L1220,125 L1275,125 L1275,95 L1365,95 L1365,160 L1430,160 L1430,205 L1520,205 L1520,230 L1600,230 L1600,300 Z"/>
-      <path fill="#9FD3EC" d="M740,240 A62,50 0 0 1 866,240 Z"/>
-      <polygon fill="#EAF6FC" points="862,300 898,300 888,55 872,55"/>
-      <ellipse fill="#EAF6FC" cx="880" cy="48" rx="30" ry="18"/>
-      <rect fill="#EAF6FC" x="875" y="-4" width="10" height="60"/>
-      <rect fill="#EAF6FC" x="878.5" y="-18" width="3" height="16"/>
+    <svg viewBox="0 -40 1600 340" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="torontoGlow" cx="58%" cy="100%" r="85%">
+          <stop offset="0%" stop-color="#FF9F5B"/>
+          <stop offset="30%" stop-color="#E8577A"/>
+          <stop offset="62%" stop-color="#6A4A9C"/>
+          <stop offset="100%" stop-color="#142847" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="-40" width="1600" height="340" fill="url(#torontoGlow)" opacity="0.65"/>
+      <!-- far skyline -->
+      <path fill="#7C8FC9" opacity="0.5" d="M0,300 L0,241 L55,241 L55,177 L112,177 L112,251 L158,251 L158,248 L220,248 L220,186 L276,186 L276,196 L322,196 L322,256 L373,256 L373,205 L420,205 L420,252 L478,252 L478,249 L530,249 L530,206 L592,206 L592,188 L638,188 L638,232 L686,232 L686,180 L751,180 L751,253 L814,253 L814,186 L877,186 L877,254 L934,254 L934,255 L986,255 L986,243 L1048,243 L1048,207 L1102,207 L1102,191 L1151,191 L1151,187 L1199,187 L1199,189 L1253,189 L1253,237 L1319,237 L1319,186 L1367,186 L1367,179 L1430,179 L1430,213 L1481,213 L1481,190 L1529,190 L1529,252 L1596,252 L1600,300 Z"/>
+      <!-- near skyline silhouette -->
+      <path fill="#121D33" opacity="0.94" d="M0,300 L0,103 L70,103 L70,138 L156,138 L156,155 L246,155 L246,79 L336,79 L336,81 L407,81 L407,150 L500,150 L500,207 L560,207 L560,101 L643,101 L643,173 L707,173 L707,251 L781,251 L781,258 L855,258 L855,267 L917,267 L917,261 L1003,261 L1003,279 L1091,279 L1091,72 L1172,72 L1172,181 L1263,181 L1263,205 L1346,205 L1346,188 L1415,188 L1415,205 L1482,205 L1482,169 L1571,169 L1600,300 Z"/>
+      <!-- Toronto City Hall -->
+      <ellipse fill="#121D33" opacity="0.94" cx="773" cy="274" rx="36" ry="15"/>
+      <path fill="#121D33" opacity="0.94" d="M733,300 Q726,190 748,108 L766,108 Q758,190 762,300 Z"/>
+      <path fill="#121D33" opacity="0.94" d="M812,300 Q818,228 802,164 L784,164 Q796,228 792,300 Z"/>
+      <!-- Rogers Centre dome -->
+      <path fill="#1C2C4C" opacity="0.94" d="M842,300 A74,56 0 0 1 990,300 Z"/>
+      <path fill="none" stroke="#3A4E78" stroke-width="2" opacity="0.8" d="M858,300 A58,44 0 0 1 916,246 M916,246 A58,44 0 0 1 974,300"/>
+      <!-- CN Tower -->
+      <polygon fill="#121D33" opacity="0.96" points="1024,300 1050,300 1040,20 1034,20"/>
+      <ellipse fill="#121D33" opacity="0.96" cx="1037" cy="10" rx="28" ry="17"/>
+      <rect fill="#121D33" opacity="0.96" x="1033" y="-48" width="8" height="58"/>
+      <rect fill="#121D33" opacity="0.96" x="1035.5" y="-68" width="3" height="20"/>
+      <circle fill="#FFD56B" opacity="0.9" cx="1037" cy="10" r="4.5"/>
+      <!-- lit windows -->
+      <g>
+        <rect fill="#FFD56B" opacity="0.65" x="26.6" y="183.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="18.4" y="262.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="10.7" y="161.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="34.7" y="165.9" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="10.9" y="178.9" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="16.8" y="162.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="131.5" y="178.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="133.6" y="168.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="90.9" y="222.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="88.5" y="208.5" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="232.1" y="222.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="219.3" y="229.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="191.8" y="253.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="283.5" y="214.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="321.1" y="269.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="290.4" y="246.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="395.7" y="216.4" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="353.9" y="108.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="350.8" y="133.0" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="374.7" y="96.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="393.9" y="158.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="344.0" y="280.5" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="465.7" y="233.5" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="485.1" y="207.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="424.0" y="209.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="442.3" y="268.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="444.2" y="174.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="488.0" y="206.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="517.3" y="258.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="539.6" y="261.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="536.6" y="224.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="511.8" y="228.0" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="532.4" y="235.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="532.8" y="258.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="574.0" y="234.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="632.4" y="214.5" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="627.9" y="133.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="686.0" y="205.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1121.5" y="217.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1149.8" y="207.4" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1149.9" y="177.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1108.8" y="277.4" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1232.1" y="248.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1211.3" y="256.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1227.1" y="224.9" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1201.3" y="204.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1232.1" y="264.9" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1294.7" y="255.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1333.3" y="225.0" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1297.2" y="223.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1273.7" y="265.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1393.8" y="239.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1401.3" y="263.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1398.7" y="250.2" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1386.9" y="233.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1367.0" y="227.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1430.9" y="262.1" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1431.1" y="284.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1439.1" y="264.9" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1464.4" y="224.4" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.5" x="1455.1" y="231.3" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1434.3" y="256.7" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1517.8" y="195.4" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.35" x="1535.9" y="284.6" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1524.6" y="263.9" width="3.5" height="5"/> <rect fill="#FFD56B" opacity="0.65" x="1526.1" y="186.2" width="3.5" height="5"/>
+      </g>
     </svg>
   </div>
   <div class="wrap hero-inner">
