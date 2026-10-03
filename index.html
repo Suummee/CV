@@ -31,8 +31,18 @@
     background: linear-gradient(135deg, var(--navy) 0%, #142847 100%);
     color: #fff;
     padding: 64px 0 48px;
+    position: relative;
+    overflow: hidden;
   }
-  header.hero .hero-inner { display: flex; align-items: center; gap: 28px; }
+  header.hero .skyline-bg {
+    position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 42%;
+    min-height: 120px;
+    opacity: 0.16;
+    pointer-events: none;
+    z-index: 0;
+  }
+  header.hero .skyline-bg svg { display: block; width: 100%; height: 100%; }
+  header.hero .hero-inner { display: flex; align-items: center; gap: 28px; position: relative; z-index: 1; }
   header.hero .avatar {
     width: 112px; height: 112px; border-radius: 50%; object-fit: cover;
     border: 3px solid rgba(255,255,255,0.35); flex-shrink: 0;
@@ -50,9 +60,6 @@
   }
   header.hero h1 { font-size: 42px; margin: 0 0 8px; font-weight: 800; }
   header.hero .tagline { font-size: 19px; color: #CFE3EC; margin-bottom: 20px; }
-  header.hero .contact { font-size: 14px; color: #D7E4EA; }
-  header.hero .contact a { color: #fff; }
-  header.hero .contact span.sep { margin: 0 10px; color: #6E8AA6; }
   header.hero .cta-row { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
   @media (max-width: 560px) { header.hero .cta-row { justify-content: center; } }
   .btn-cta {
@@ -178,20 +185,25 @@
 <body>
 
 <header class="hero">
+  <div class="skyline-bg" aria-hidden="true">
+    <svg viewBox="0 0 1600 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#CFE3EC" d="M0,300 L0,230 L55,230 L55,170 L110,170 L110,205 L180,205 L180,130 L245,130 L245,180 L310,180 L310,90 L375,90 L375,150 L430,150 L430,65 L520,65 L520,190 L575,190 L575,220 L665,220 L665,240 L745,240 L745,160 L800,160 L800,235 L855,235 L855,235 L910,235 L910,150 L975,150 L975,200 L1040,200 L1040,235 L1130,235 L1130,180 L1220,180 L1220,125 L1275,125 L1275,95 L1365,95 L1365,160 L1430,160 L1430,205 L1520,205 L1520,230 L1600,230 L1600,300 Z"/>
+      <path fill="#CFE3EC" d="M745,240 A58,46 0 0 1 861,240 Z"/>
+      <polygon fill="#CFE3EC" points="866,300 894,300 886,70 874,70"/>
+      <ellipse fill="#CFE3EC" cx="880" cy="64" rx="24" ry="15"/>
+      <rect fill="#CFE3EC" x="876" y="8" width="8" height="56"/>
+      <rect fill="#CFE3EC" x="879" y="0" width="2" height="8"/>
+    </svg>
+  </div>
   <div class="wrap hero-inner">
     <img class="avatar" src="assets/img/profile.jpg" alt="Sumeet Telgote">
     <div>
       <div class="eyebrow">Portfolio</div>
       <h1>Sumeet Telgote</h1>
       <div class="tagline">Marketing &amp; Communications · Digital Marketing · Operations &amp; Retail Leadership</div>
-      <div class="contact">
-        Brampton, ON, Canada <span class="sep">|</span>
-        <a href="mailto:telgotesumeet@gmail.com" data-copy="telgotesumeet@gmail.com">telgotesumeet@gmail.com</a> <span class="sep">|</span>
-        <a href="tel:+12508793560" data-copy="(250) 879-3560">(250) 879-3560</a> <span class="sep">|</span>
-        <a href="https://www.linkedin.com/in/sumeet-telgote/" target="_blank" rel="noopener">linkedin.com/in/sumeet-telgote</a>
-      </div>
       <div class="cta-row">
         <a class="btn-cta solid" href="mailto:telgotesumeet@gmail.com" data-copy="telgotesumeet@gmail.com">Let's Talk — Email Me</a>
+        <a class="btn-cta outline" href="tel:+12508793560" data-copy="(250) 879-3560">Let's Talk — Call Me</a>
         <a class="btn-cta outline" href="https://www.linkedin.com/in/sumeet-telgote/" target="_blank" rel="noopener">Connect on LinkedIn</a>
       </div>
     </div>
