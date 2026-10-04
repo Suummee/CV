@@ -146,6 +146,9 @@
     font-weight: 600; padding: 10px 18px; border-radius: 6px;
   }
   .btn:hover { background: var(--teal); text-decoration: none; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); padding: 8.5px 16.5px; }
+  .btn-outline:hover { background: var(--navy); color: #fff; }
 
   /* Filters */
   .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
@@ -301,7 +304,10 @@
       <div class="resume-card">
         <h3>Marketing &amp; Communications</h3>
         <p>For Marketing Coordinator, Communications Coordinator, Digital Marketing, and PR roles.</p>
-        <a class="btn" id="resume-btn" href="assets/resume/Sumeet_Telgote_Resume_Marketing_Communications.pdf" download="Sumeet_Telgote_Resume_Marketing_Communications.pdf">Download Resume (PDF)</a>
+        <div class="btn-row">
+          <a class="btn" href="assets/resume/Sumeet_Telgote_Resume_Marketing_Communications.pdf?v=2026-10-04" target="_blank" rel="noopener">View Resume</a>
+          <a class="btn btn-outline" href="assets/resume/Sumeet_Telgote_Resume_Marketing_Communications.pdf?v=2026-10-04" download="Sumeet_Telgote_Resume_Marketing_Communications.pdf">Download PDF</a>
+        </div>
       </div>
     </div>
   </div>
@@ -439,15 +445,5 @@ document.querySelectorAll("[data-copy]").forEach((el) => {
 });
 </script>
 
-<script>
-/* Resume button: downloads the PDF and also opens it in a new tab */
-(function () {
-  var btn = document.getElementById('resume-btn');
-  if (!btn) return;
-  btn.addEventListener('click', function () {
-    window.open(btn.href, '_blank', 'noopener');
-  });
-})();
-</script>
 </body>
 </html>
