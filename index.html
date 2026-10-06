@@ -170,8 +170,8 @@
 
   /* Carousel */
   .carousel { position: relative; padding: 0 46px; }
-  .carousel-track { display: flex; overflow: hidden; }
-  .carousel-track > .project-grid { flex-shrink: 0; box-sizing: border-box; }
+  .carousel-track { display: flex; overflow: hidden; transition: transform .45s ease; }
+  .carousel-track > .project-grid { flex-shrink: 0; box-sizing: border-box; padding: 0 16px; }
   .carousel-arrow {
     position: absolute; top: 40%; transform: translateY(-50%);
     width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
