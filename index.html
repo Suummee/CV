@@ -137,6 +137,15 @@
     border-radius: 999px; padding: 6px 14px;
   }
 
+  /* Filters */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .filter-btn {
+    border: 1px solid var(--border); background: #fff; color: var(--dark);
+    font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
+    cursor: pointer;
+  }
+  .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
   /* Project grid */
   .project-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
   @media (max-width: 860px) { .project-grid { grid-template-columns: 1fr 1fr; } }
@@ -277,6 +286,12 @@
 <section id="projects">
   <div class="wrap">
     <h2 class="section-title">Project Portfolio</h2>
+    <div class="filters" id="filters">
+      <button class="filter-btn" data-filter="strategy">Marketing &amp; Strategy</button>
+      <button class="filter-btn" data-filter="digital">Digital &amp; Data</button>
+      <button class="filter-btn" data-filter="comms">Communications &amp; Campaigns</button>
+      <button class="filter-btn" data-filter="creative">Creative &amp; Visual</button>
+    </div>
     <div class="carousel" id="projectCarousel">
       <div class="carousel-track" id="carouselTrack"></div>
       <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous projects">&#8249;</button>
@@ -374,17 +389,19 @@ function updateCarousel() {
   const n = track.children.length;
   [...track.children].forEach((p, i) => p.classList.toggle("active", i === currentPage));
   [...dotsWrap.children].forEach((d, i) => d.classList.toggle("active", i === currentPage));
-  prevBtn.hidden = currentPage === 0;
-  nextBtn.hidden = currentPage === n - 1;
+  prevBtn.hidden = currentPage === 0 || n <= 1;
+  nextBtn.hidden = currentPage === n - 1 || n <= 1;
 }
 
-function render() {
-  track.innerHTML = CAROUSEL_GROUPS.map(group => `<div class="project-grid">${group.map(cardHTML).join("")}</div>`).join("");
-  dotsWrap.innerHTML = CAROUSEL_GROUPS.map((_, i) => `<button aria-label="Go to set ${i + 1}" data-page="${i}"></button>`).join("");
+function render(filter) {
+  const pages = filter ? [PROJECTS.filter(p => p.cat === filter)] : CAROUSEL_GROUPS;
+  track.innerHTML = pages.map(group => `<div class="project-grid">${group.map(cardHTML).join("")}</div>`).join("");
+  dotsWrap.innerHTML = pages.map((_, i) => `<button aria-label="Go to set ${i + 1}" data-page="${i}"></button>`).join("");
+  dotsWrap.hidden = pages.length <= 1;
   currentPage = 0;
   updateCarousel();
 }
-render();
+render(null);
 
 prevBtn.addEventListener("click", () => { if (currentPage > 0) { currentPage--; updateCarousel(); } });
 nextBtn.addEventListener("click", () => { if (currentPage < track.children.length - 1) { currentPage++; updateCarousel(); } });
@@ -393,6 +410,19 @@ dotsWrap.addEventListener("click", (e) => {
   if (!btn) return;
   currentPage = Number(btn.dataset.page);
   updateCarousel();
+});
+
+document.getElementById("filters").addEventListener("click", (e) => {
+  if (!e.target.classList.contains("filter-btn")) return;
+  const btn = e.target;
+  const wasActive = btn.classList.contains("active");
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  if (wasActive) {
+    render(null); // clicking the active filter again returns to the curated carousel
+  } else {
+    btn.classList.add("active");
+    render(btn.dataset.filter);
+  }
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
