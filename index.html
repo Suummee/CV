@@ -170,8 +170,15 @@
 
   /* Carousel */
   .carousel { position: relative; padding: 0 46px; }
-  .carousel-track { display: flex; overflow: hidden; transition: transform .45s ease; }
-  .carousel-track > .project-grid { flex-shrink: 0; box-sizing: border-box; padding: 0 16px; }
+  .carousel-track { position: relative; }
+  .carousel-track > .project-grid {
+    position: absolute; top: 0; left: 0; right: 0;
+    opacity: 0; pointer-events: none;
+    transition: opacity .4s ease;
+  }
+  .carousel-track > .project-grid.active {
+    position: relative; opacity: 1; pointer-events: auto;
+  }
   .carousel-arrow {
     position: absolute; top: 40%; transform: translateY(-50%);
     width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
@@ -365,16 +372,14 @@ let currentPage = 0;
 
 function updateCarousel() {
   const n = track.children.length;
-  track.style.transform = `translateX(-${currentPage * (100 / n)}%)`;
+  [...track.children].forEach((p, i) => p.classList.toggle("active", i === currentPage));
   [...dotsWrap.children].forEach((d, i) => d.classList.toggle("active", i === currentPage));
-  prevBtn.disabled = currentPage === 0;
-  nextBtn.disabled = currentPage === n - 1;
+  prevBtn.hidden = currentPage === 0;
+  nextBtn.hidden = currentPage === n - 1;
 }
 
 function render() {
-  const n = CAROUSEL_GROUPS.length;
-  track.style.width = `${n * 100}%`;
-  track.innerHTML = CAROUSEL_GROUPS.map(group => `<div class="project-grid" style="width:${100 / n}%">${group.map(cardHTML).join("")}</div>`).join("");
+  track.innerHTML = CAROUSEL_GROUPS.map(group => `<div class="project-grid">${group.map(cardHTML).join("")}</div>`).join("");
   dotsWrap.innerHTML = CAROUSEL_GROUPS.map((_, i) => `<button aria-label="Go to set ${i + 1}" data-page="${i}"></button>`).join("");
   currentPage = 0;
   updateCarousel();
