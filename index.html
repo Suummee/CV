@@ -39,12 +39,16 @@
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 
   header.hero {
-    background: #2E2538 url("assets/img/toronto-skyline.jpg?v=20261006h") 16% top / cover no-repeat;
+    background: #2E2538 url("assets/img/toronto-skyline.jpg?v=20261006i") center / contain no-repeat, #2E2538;
+    min-height: clamp(220px, 36vw, 480px);
     color: #fff;
     padding: 72px 0 52px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
   }
+  header.hero .wrap { width: 100%; }
   header.hero .hero-scrim {
     position: absolute; inset: 0; z-index: 0; pointer-events: none;
     background: linear-gradient(90deg, rgba(20,14,24,0.52) 0%, rgba(20,14,24,0.42) 55%, rgba(20,14,24,0.22) 100%);
