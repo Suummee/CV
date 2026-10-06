@@ -152,14 +152,15 @@
   .project-card:hover { box-shadow: 0 6px 20px rgba(31,56,100,.08); transform: translateY(-2px); }
   .project-card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
   .project-visual {
-    height: 92px; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    height: 150px; flex-shrink: 0; overflow: hidden; position: relative;
   }
-  .project-visual svg { width: 36px; height: 36px; }
-  .grad-strategy { background: linear-gradient(135deg, #1F3864, #2C4F8A); }
-  .grad-digital  { background: linear-gradient(135deg, #2E7D6E, #1F5B50); }
-  .grad-comms    { background: linear-gradient(135deg, #3B6EA8, #1F3864); }
-  .grad-creative { background: linear-gradient(135deg, #2E7D6E, #1F3864); }
+  .project-visual img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    display: block;
+  }
+  .grad-strategy, .grad-digital, .grad-comms, .grad-creative {
+    background: linear-gradient(135deg, #1F3864, #2C4F8A);
+  }
   .project-card .tag {
     align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .5px;
     text-transform: uppercase; color: var(--teal); background: #E8F3F0;
@@ -318,41 +319,27 @@
 </footer>
 
 <script>
-const ICONS = {
-  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="#fff"/>',
-  barChart: '<line x1="5" y1="20" x2="5" y2="12"/><line x1="12" y1="20" x2="12" y2="7"/><line x1="19" y1="20" x2="19" y2="15"/><line x1="3" y1="20" x2="21" y2="20"/>',
-  cart: '<circle cx="9" cy="20" r="1.3" fill="#fff"/><circle cx="18" cy="20" r="1.3" fill="#fff"/><path d="M2 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L21 7H6"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/>',
-  scale: '<line x1="12" y1="3" x2="12" y2="21"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/>',
-  megaphone: '<path d="M3 11v2a2 2 0 0 0 2 2h1l3 5V4l-3 5H5a2 2 0 0 0-2 2z"/><path d="M13 8a4 4 0 0 1 0 8"/><path d="M17 5a9 9 0 0 1 0 14"/>',
-  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/>',
-  card: '<rect x="2" y="6" width="20" height="13" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
-  award: '<circle cx="12" cy="9" r="6"/><path d="M8.5 14.5L7 22l5-3 5 3-1.5-7.5"/>',
-  palette: '<path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-.5-1.5-.5-2.3c0-.9.7-1.7 1.7-1.7H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/><circle cx="7.5" cy="10.5" r="1.1" fill="#fff"/><circle cx="12" cy="7.5" r="1.1" fill="#fff"/><circle cx="16" cy="10" r="1.1" fill="#fff"/>',
-  camera: '<path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="4"/>',
-};
-
 const PROJECTS = [
-  { title: "Marketing Strategy Portfolio — CarbonFlux", cat: "strategy", tag: "Marketing Strategy", desc: "Graduate-level strategic marketing coursework — a marketplace simulation final analysis and executive briefing for Team 4: CarbonFlux.", src: "TRU — Postgraduate Marketing", file: "Marketing_Strategy_Portfolio.pdf", icon: "target" },
-  { title: "Marketing Research Portfolio — Green Purchasing in Malaysia", cat: "strategy", tag: "Marketing Research", desc: "A research methodology project analyzing young consumers' intention toward future green purchasing in Malaysia.", src: "TRU — Postgraduate Marketing", file: "Marketing_Research_Portfolio.pdf", icon: "barChart" },
-  { title: "Marketing Plan — Earls Kitchen + Bar", cat: "strategy", tag: "Marketing Plan", desc: "A full marketing plan built around a real restaurant brand.", src: "TRU — Postgraduate Marketing", file: "Marketing_Plan_Earls.pdf", icon: "target" },
-  { title: "Retail Management Portfolio — Cover It", cat: "strategy", tag: "Retail Management", desc: "Retail management coursework, including a full retail marketing plan for Cover It, an e-commerce storefront.", src: "TRU — Postgraduate Marketing", file: "Retail_Management_Portfolio.pdf", icon: "cart" },
-  { title: "Kamloops Supermarket — Kickstarter Campaign", cat: "strategy", tag: "E-commerce", desc: "A team crowdfunding campaign for a local e-commerce grocery platform.", src: "TRU — Postgraduate Marketing", file: "Kamloops_Supermarket_Kickstarter.pdf", icon: "cart" },
-  { title: "International Business Portfolio — Investing in Mongolia", cat: "strategy", tag: "International Business", desc: "A country analysis report and presentation evaluating a Canadian company's expansion into Mongolia.", src: "TRU — Postgraduate Marketing", file: "International_Business_Portfolio.pdf", icon: "globe" },
-  { title: "Economics Assignment Portfolio — Student Performance Statistics", cat: "strategy", tag: "Economics", desc: "A statistical analysis and presentation examining grades, gender, age, and program duration in a 30-student dataset.", src: "TRU — Postgraduate Marketing", file: "Economics_Assignment_Portfolio.pdf", icon: "barChart" },
-  { title: "Case Analysis — Fair & Lovely", cat: "strategy", tag: "Case Analysis", desc: "A case study analysis examining a real marketing ethics case.", src: "TRU — Postgraduate Marketing", file: "Case_Analysis_Fair_Lovely.pdf", icon: "scale" },
+  { title: "Marketing Strategy Portfolio — CarbonFlux", cat: "strategy", tag: "Marketing Strategy", desc: "Graduate-level strategic marketing coursework — a marketplace simulation final analysis and executive briefing for Team 4: CarbonFlux.", src: "TRU — Postgraduate Marketing", file: "Marketing_Strategy_Portfolio.pdf" },
+  { title: "Marketing Research Portfolio — Green Purchasing in Malaysia", cat: "strategy", tag: "Marketing Research", desc: "A research methodology project analyzing young consumers' intention toward future green purchasing in Malaysia.", src: "TRU — Postgraduate Marketing", file: "Marketing_Research_Portfolio.pdf" },
+  { title: "Marketing Plan — Earls Kitchen + Bar", cat: "strategy", tag: "Marketing Plan", desc: "A full marketing plan built around a real restaurant brand.", src: "TRU — Postgraduate Marketing", file: "Marketing_Plan_Earls.pdf" },
+  { title: "Retail Management Portfolio — Cover It", cat: "strategy", tag: "Retail Management", desc: "Retail management coursework, including a full retail marketing plan for Cover It, an e-commerce storefront.", src: "TRU — Postgraduate Marketing", file: "Retail_Management_Portfolio.pdf" },
+  { title: "Kamloops Supermarket — Kickstarter Campaign", cat: "strategy", tag: "E-commerce", desc: "A team crowdfunding campaign for a local e-commerce grocery platform.", src: "TRU — Postgraduate Marketing", file: "Kamloops_Supermarket_Kickstarter.pdf" },
+  { title: "International Business Portfolio — Investing in Mongolia", cat: "strategy", tag: "International Business", desc: "A country analysis report and presentation evaluating a Canadian company's expansion into Mongolia.", src: "TRU — Postgraduate Marketing", file: "International_Business_Portfolio.pdf" },
+  { title: "Economics Assignment Portfolio — Student Performance Statistics", cat: "strategy", tag: "Economics", desc: "A statistical analysis and presentation examining grades, gender, age, and program duration in a 30-student dataset.", src: "TRU — Postgraduate Marketing", file: "Economics_Assignment_Portfolio.pdf" },
+  { title: "Case Analysis — Fair & Lovely", cat: "strategy", tag: "Case Analysis", desc: "A case study analysis examining a real marketing ethics case.", src: "TRU — Postgraduate Marketing", file: "Case_Analysis_Fair_Lovely.pdf" },
 
-  { title: "Pure Harvest Connect", cat: "digital", tag: "Digital Marketing", desc: "A farm-to-consumer marketplace concept for Kamloops — brand, website, and digital marketing plan.", src: "TRU — Postgraduate Marketing", file: "Pure_Harvest_Connect_Project_Portfolio.pdf", icon: "megaphone" },
-  { title: "GameCo — Marketing Budget Recommendation", cat: "digital", tag: "Data Analytics", desc: "A regional sales data analysis and budget-reallocation recommendation — full analytics case study.", src: "CareerFoundry — Data Analytics Immersion", file: "GameCo_Marketing_Budget_Recommendation.pdf", icon: "barChart" },
-  { title: "Direct Marketing — Ajio Reward Card", cat: "digital", tag: "Direct Marketing", desc: "A loyalty program proposal for Ajio.com.", src: "Wilson College — Mass Media", file: "Direct_Marketing_Ajio_Reward_Card.pdf", icon: "card" },
+  { title: "Pure Harvest Connect", cat: "digital", tag: "Digital Marketing", desc: "A farm-to-consumer marketplace concept for Kamloops — brand, website, and digital marketing plan.", src: "TRU — Postgraduate Marketing", file: "Pure_Harvest_Connect_Project_Portfolio.pdf" },
+  { title: "GameCo — Marketing Budget Recommendation", cat: "digital", tag: "Data Analytics", desc: "A regional sales data analysis and budget-reallocation recommendation — full analytics case study.", src: "CareerFoundry — Data Analytics Immersion", file: "GameCo_Marketing_Budget_Recommendation.pdf" },
+  { title: "Direct Marketing — Ajio Reward Card", cat: "digital", tag: "Direct Marketing", desc: "A loyalty program proposal for Ajio.com.", src: "Wilson College — Mass Media", file: "Direct_Marketing_Ajio_Reward_Card.pdf" },
 
-  { title: "IMC Plan — Stanley 1913", cat: "comms", tag: "Integrated Marketing Comms", desc: "A full integrated marketing communications plan built around a real brand.", src: "TRU — Postgraduate Marketing", file: "IMC_Plan_Stanley1913.pdf", icon: "award" },
-  { title: "IMC Podcast Portfolio — GreenTalk", cat: "comms", tag: "Integrated Marketing Comms", desc: "A podcast project, GreenTalk, exploring green advertising and sustainability messaging.", src: "TRU — Postgraduate Marketing", file: "IMC_Podcast_Portfolio.pdf", icon: "mic" },
-  { title: "Swachh Bharat Abhiyan — Campaign Analysis", cat: "comms", tag: "Campaign Analysis", desc: "An analysis of a national public communications campaign, including a critical look at messaging effectiveness.", src: "Wilson College — Mass Media", file: "Swachh_Bharat_Abhiyan_Campaign_Analysis.pdf", icon: "megaphone" },
+  { title: "IMC Plan — Stanley 1913", cat: "comms", tag: "Integrated Marketing Comms", desc: "A full integrated marketing communications plan built around a real brand.", src: "TRU — Postgraduate Marketing", file: "IMC_Plan_Stanley1913.pdf" },
+  { title: "IMC Podcast Portfolio — GreenTalk", cat: "comms", tag: "Integrated Marketing Comms", desc: "A podcast project, GreenTalk, exploring green advertising and sustainability messaging.", src: "TRU — Postgraduate Marketing", file: "IMC_Podcast_Portfolio.pdf" },
+  { title: "Swachh Bharat Abhiyan — Campaign Analysis", cat: "comms", tag: "Campaign Analysis", desc: "An analysis of a national public communications campaign, including a critical look at messaging effectiveness.", src: "Wilson College — Mass Media", file: "Swachh_Bharat_Abhiyan_Campaign_Analysis.pdf" },
 
-  { title: "Colaba — Visual Design Project", cat: "creative", tag: "Visual Design", desc: "A travel and culture brand design project — cover art, collage, and brochure design.", src: "Wilson College — Mass Media", file: "Colaba_Visual_Design_Project.pdf", icon: "palette" },
-  { title: "Dusky Prints — A Personal Brand Identity", cat: "creative", tag: "Brand Identity", desc: "A full personal brand identity project — logo suite, collateral, mockups, and web presence.", src: "Wilson College — Mass Media", file: "Dusky_Prints_Brand_Identity.pdf", icon: "palette" },
-  { title: "Chhatrapati Shivaji Maharaj Vastu Sangrahlaya", cat: "creative", tag: "Photo Essay", desc: "A photo essay documenting the architecture, interiors, and galleries of a major Mumbai museum.", src: "Wilson College — Effective Communication Skills", file: "ECS_Project_CSMVS.pdf", icon: "camera" },
+  { title: "Colaba — Visual Design Project", cat: "creative", tag: "Visual Design", desc: "A travel and culture brand design project — cover art, collage, and brochure design.", src: "Wilson College — Mass Media", file: "Colaba_Visual_Design_Project.pdf" },
+  { title: "Dusky Prints — A Personal Brand Identity", cat: "creative", tag: "Brand Identity", desc: "A full personal brand identity project — logo suite, collateral, mockups, and web presence.", src: "Wilson College — Mass Media", file: "Dusky_Prints_Brand_Identity.pdf" },
+  { title: "Chhatrapati Shivaji Maharaj Vastu Sangrahlaya", cat: "creative", tag: "Photo Essay", desc: "A photo essay documenting the architecture, interiors, and galleries of a major Mumbai museum.", src: "Wilson College — Effective Communication Skills", file: "ECS_Project_CSMVS.pdf" },
 ];
 
 const GRAD_CLASS = { strategy: "grad-strategy", digital: "grad-digital", comms: "grad-comms", creative: "grad-creative" };
@@ -365,7 +352,7 @@ function render(filter) {
     card.className = "project-card";
     card.innerHTML = `
       <div class="project-visual ${GRAD_CLASS[p.cat]}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[p.icon]}</svg>
+        <img src="assets/projects/thumbs/${p.file.replace('.pdf', '.jpg')}" alt="${p.title} — cover preview" loading="lazy">
       </div>
       <div class="body">
         <span class="tag">${p.tag}</span>
