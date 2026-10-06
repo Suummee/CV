@@ -137,15 +137,6 @@
     border-radius: 999px; padding: 6px 14px;
   }
 
-  /* Filters */
-  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-  .filter-btn {
-    border: 1px solid var(--border); background: #fff; color: var(--dark);
-    font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
-    cursor: pointer;
-  }
-  .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
-
   /* Project grid */
   .project-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
   @media (max-width: 860px) { .project-grid { grid-template-columns: 1fr 1fr; } }
@@ -279,13 +270,6 @@
 <section id="projects">
   <div class="wrap">
     <h2 class="section-title">Project Portfolio</h2>
-    <div class="filters" id="filters">
-      <button class="filter-btn active" data-filter="all">All (17)</button>
-      <button class="filter-btn" data-filter="strategy">Marketing &amp; Strategy</button>
-      <button class="filter-btn" data-filter="digital">Digital &amp; Data</button>
-      <button class="filter-btn" data-filter="comms">Communications &amp; Campaigns</button>
-      <button class="filter-btn" data-filter="creative">Creative &amp; Visual</button>
-    </div>
     <div class="carousel" id="projectCarousel">
       <div class="carousel-track" id="carouselTrack"></div>
       <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous projects">&#8249;</button>
@@ -360,7 +344,7 @@ function cardHTML(p) {
   return `
     <div class="project-card">
       <div class="project-visual ${GRAD_CLASS[p.cat]}">
-        <img src="assets/projects/thumbs/${p.file.replace('.pdf', '.jpg')}?v=${THUMB_VERSION}" alt="${p.title} — cover preview" loading="lazy">
+        <img src="assets/projects/thumbs/${p.file.replace('.pdf', '.jpg')}?v=${THUMB_VERSION}" alt="${p.title} — cover preview">
       </div>
       <div class="body">
         <span class="tag">${p.tag}</span>
@@ -386,18 +370,13 @@ function updateCarousel() {
   nextBtn.disabled = currentPage === track.children.length - 1;
 }
 
-function render(filter) {
-  const pages = filter === "all" ? CAROUSEL_GROUPS : [PROJECTS.filter(p => p.cat === filter)];
-  track.innerHTML = pages.map(group => `<div class="project-grid">${group.map(cardHTML).join("")}</div>`).join("");
-  dotsWrap.innerHTML = pages.map((_, i) => `<button aria-label="Go to set ${i + 1}" data-page="${i}"></button>`).join("");
-  const multiPage = pages.length > 1;
-  prevBtn.hidden = !multiPage;
-  nextBtn.hidden = !multiPage;
-  dotsWrap.hidden = !multiPage;
+function render() {
+  track.innerHTML = CAROUSEL_GROUPS.map(group => `<div class="project-grid">${group.map(cardHTML).join("")}</div>`).join("");
+  dotsWrap.innerHTML = CAROUSEL_GROUPS.map((_, i) => `<button aria-label="Go to set ${i + 1}" data-page="${i}"></button>`).join("");
   currentPage = 0;
   updateCarousel();
 }
-render("all");
+render();
 
 prevBtn.addEventListener("click", () => { if (currentPage > 0) { currentPage--; updateCarousel(); } });
 nextBtn.addEventListener("click", () => { if (currentPage < track.children.length - 1) { currentPage++; updateCarousel(); } });
@@ -406,13 +385,6 @@ dotsWrap.addEventListener("click", (e) => {
   if (!btn) return;
   currentPage = Number(btn.dataset.page);
   updateCarousel();
-});
-
-document.getElementById("filters").addEventListener("click", (e) => {
-  if (!e.target.classList.contains("filter-btn")) return;
-  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-  e.target.classList.add("active");
-  render(e.target.dataset.filter);
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
